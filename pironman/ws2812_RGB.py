@@ -11,7 +11,7 @@ from utils import log
 # LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
 # LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
 
-RGB_styles = ['breath', 'leap', 'flow', 'raise_up', 'colorful']
+RGB_styles = ['breath', 'leap', 'flow', 'raise_up', 'colorful', 'rainbow_breath']
 colorful_leds = [
 	"#ff0000", "#e71164", "#ffa500", "#0000ff",
 	"#ffC800", "#00ff00", "#0000ff", "#00ffb4",
@@ -187,6 +187,26 @@ class WS2812():
 					self.strip.setPixelColor(index, Color(r,g,b))
 				self.strip.show()
 				time.sleep(0.001*speed)
+				
+	def rainbow_breath(self, color:list=None, speed=50):
+		speed = 101 - speed
+		rainbow_seq =[[255, 0, 0], [255, 165, 0], [255, 255, 0], [0, 128, 0], [0, 0, 255], [75, 0, 130], [238, 130, 238]]
+		while True:
+			self.reinit()
+			for rainbow_color in rainbow_seq:
+				self.reinit()
+				for i in range(2,101):
+					r, g, b = [int(x*i*0.01) for x in rainbow_color]
+					for index in self.lights_order:
+						self.strip.setPixelColor(index, Color(r,g,b))
+					self.strip.show()
+					time.sleep(0.001*speed)
+				for i in range(100,1,-1):
+					r, g, b = [int(x*i*0.01) for x in rainbow_color]
+					for index in self.lights_order:
+						self.strip.setPixelColor(index, Color(r,g,b))
+					self.strip.show()
+					time.sleep(0.001*speed)
 
 if __name__ == "__main__":
 	speed = 50
@@ -196,6 +216,7 @@ if __name__ == "__main__":
 	strip.display(style='colorful', speed=speed)
 	# strip.display(style='flow',color='#1a1aff', speed=speed)
 	# strip.display(style='raise_up',color='#1a1aff', speed=speed)
+	# strip.display(style='rainbow_breath', speed=speed)
 
 
 
