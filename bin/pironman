@@ -193,13 +193,13 @@ case "$1" in
         ;;
     -rs|--rgb_style)
         case "$2" in
-            breath|leap|flow|raise_up|colorful)
+            breath|leap|flow|raise_up|colorful|rainbow_breath)
                 echo "set rgb_style to $2 "
                 sed -i -e "s:rgb_style.*=.*:rgb_style = $2:g" ${CONF}
                 restart
             ;;
             *)
-                echo "usage: pironman -rs|--rgb_style [breath / leap / flow / raise_up / colorful]"
+                echo "usage: pironman -rs|--rgb_style [breath / leap / flow / raise_up / colorful / rainbow_breath]"
             ;;
         esac
         ;;
